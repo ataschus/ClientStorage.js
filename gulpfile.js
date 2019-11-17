@@ -2,6 +2,7 @@ const { src, dest, series } = require('gulp');
 const concat = require('gulp-concat');
 const replace = require('gulp-replace');
 const uglify = require('gulp-uglify');
+const rename = require('gulp-rename');
 const typescript = require('gulp-typescript');
 
 function transpile() {
@@ -36,10 +37,9 @@ function minify() {
     return src([
         'dist/ClientStorage.js'
     ])
-        .pipe(uglify({
-            compress: true
-        }))
-        .pipe(dest('dist/ClientStorage.min.js'));
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(dest('dist'));
 }
 
 
