@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="dist/ClientStorage.js"></script>
+    <script>
+        var cs = new ClientStorage('testcookie');
+        cs.set(['i', 'was', 'here']);
+        cs.save();
+        console.log(cs.get());
+    </script>
+</head>
+
+<body>
+    <div id="result">
+
+    </div>
+</body>
+
+</html>

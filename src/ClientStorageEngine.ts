@@ -1,4 +1,4 @@
-import {ClientStorageEngineCookie} from "./storageEngines/ClientStorageEngineCookie";
+import { ClientStorageEngineCookie } from "./storageEngines/ClientStorageEngineCookie";
 
 export class ClientStorageEngine {
     engine: any;
@@ -6,8 +6,6 @@ export class ClientStorageEngine {
     constructor(engineName: string) {
         switch (engineName.toLowerCase()) {
             case "cookie": {
-                console.debug('starting cookie engine');
-                
                 this.engine = new ClientStorageEngineCookie();
                 break;
             }

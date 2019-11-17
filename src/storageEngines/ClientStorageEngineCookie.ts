@@ -1,4 +1,4 @@
-import {ClientStorageEngineInterface} from "../ClientStorageEngineInterface";
+import { ClientStorageEngineInterface } from "../ClientStorageEngineInterface";
 
 export class ClientStorageEngineCookie implements ClientStorageEngineInterface {
     currentValue: {};
@@ -12,17 +12,17 @@ export class ClientStorageEngineCookie implements ClientStorageEngineInterface {
     get(keyName: string) {
         if ('undefined' === this.currentValue[keyName]) {
             this.currentValue[keyName] = '';
-
+            console.log('reading cookie');
             let decoded_cookies = decodeURIComponent(document.cookie),
                 cookie_array = decoded_cookies.split(';');
 
-            for ( let i = 0; i < cookie_array.length; i++ ) {
+            for (let i = 0; i < cookie_array.length; i++) {
                 let cookie = cookie_array[i];
-                while ( cookie.charAt(0) == ' ' ) {
+                while (cookie.charAt(0) == ' ') {
                     cookie = cookie.substring(1);
                 }
-                if ( cookie.indexOf(keyName + '=') == 0 ) {
-                    this.currentValue[keyName] =  JSON.parse(cookie.substring((keyName).length + 1, cookie.length));
+                if (cookie.indexOf(keyName + '=') == 0) {
+                    this.currentValue[keyName] = JSON.parse(cookie.substring((keyName).length + 1, cookie.length));
                 }
             }
             this.currentValue[keyName] = "";
