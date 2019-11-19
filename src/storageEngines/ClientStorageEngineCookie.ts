@@ -10,22 +10,19 @@ export class ClientStorageEngineCookie implements ClientStorageEngineInterface {
     }
 
     get(keyName: string) {
-        if ('undefined' === this.currentValue[keyName]) {
-            this.currentValue[keyName] = '';
-            console.log('reading cookie');
+        if ('undefined' === typeof (this.currentValue[keyName])) {
             let decoded_cookies = decodeURIComponent(document.cookie),
                 cookie_array = decoded_cookies.split(';');
 
             for (let i = 0; i < cookie_array.length; i++) {
                 let cookie = cookie_array[i];
-                while (cookie.charAt(0) == ' ') {
+                while (' ' === cookie.charAt(0)) {
                     cookie = cookie.substring(1);
                 }
-                if (cookie.indexOf(keyName + '=') == 0) {
+                if (0 === cookie.indexOf(keyName + '=')) {
                     this.currentValue[keyName] = JSON.parse(cookie.substring((keyName).length + 1, cookie.length));
                 }
             }
-            this.currentValue[keyName] = "";
         }
 
         return this.currentValue[keyName];
@@ -38,6 +35,7 @@ export class ClientStorageEngineCookie implements ClientStorageEngineInterface {
     }
 
     delete(keyName: string) {
+        delete this.currentValue[keyName];
         this.expireSeconds = -3600;
         this.save(keyName);
 
